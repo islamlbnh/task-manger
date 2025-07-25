@@ -1,23 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { useSelector, useDispatch } from "react-redux";
-import { setTasks } from "../store/taskSlice";
-import { getTasks } from "../services/api";
+import { useSelector } from "react-redux";
 import TaskItem from "./TaskItem";
 import useUIStore from "../store/uiStore";
+import { useTasks } from "../services/query";
 
 export default function TaskList() {
   const { filter } = useUIStore();
   const tasks = useSelector((state) => state.tasks.tasks);
-  const dispatch = useDispatch();
 
-  const { isLoading } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: async () => {
-      const data = await getTasks();
-      dispatch(setTasks(data));
-      return data;
-    },
-  });
+  const { isLoading } = useTasks();
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === "completed") return task.completed;
@@ -25,7 +15,7 @@ export default function TaskList() {
     return true;
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="max-w-md mx-auto">Loading...</div>;
 
   return (
     <div className="max-w-md mx-auto">

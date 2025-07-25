@@ -1,22 +1,11 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import { addTask } from "../store/taskSlice";
-import { createTask } from "../services/api";
+
+import { useCreateTask } from "../services/query";
 
 export default function TaskForm() {
   const [title, setTitle] = useState("");
-  const dispatch = useDispatch();
-  const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: createTask,
-    onSuccess: (newTask) => {
-      dispatch(addTask(newTask));
-      queryClient.invalidateQueries(["tasks"]);
-      setTitle("");
-    },
-  });
+  const mutation = useCreateTask();
 
   const handleSubmit = (e) => {
     e.preventDefault();

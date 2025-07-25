@@ -1,30 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import { updateTask, deleteTask } from "../store/taskSlice";
-import {
-  updateTask as updateTaskApi,
-  deleteTask as deleteTaskApi,
-} from "../services/api";
+import { useDeleteTask, useUpdateTask } from "../services/query";
 
 export default function TaskItem({ task }) {
-  const dispatch = useDispatch();
-  const queryClient = useQueryClient();
+  const updateMutation = useUpdateTask();
 
-  const updateMutation = useMutation({
-    mutationFn: ({ id, updates }) => updateTaskApi(id, updates),
-    onSuccess: (updatedTask) => {
-      dispatch(updateTask({ id: updatedTask.id, updates: updatedTask }));
-      queryClient.invalidateQueries(["tasks"]);
-    },
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteTaskApi,
-    onSuccess: () => {
-      dispatch(deleteTask(task.id));
-      queryClient.invalidateQueries(["tasks"]);
-    },
-  });
+  const deleteMutation = useDeleteTask();
 
   return (
     <div className="flex justify-between items-center p-4 border-b">

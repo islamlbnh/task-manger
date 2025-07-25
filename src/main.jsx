@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import { store } from "./store/store.js";
+import store from "./store/store.js";
 import "./index.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
