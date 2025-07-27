@@ -1,16 +1,14 @@
 import { useState } from "react";
-
 import { useCreateTask } from "../services/query";
 
 export default function TaskForm() {
   const [title, setTitle] = useState("");
-
-  const mutation = useCreateTask();
+  const creaTask = useCreateTask();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim()) {
-      mutation.mutate({ title, completed: false });
+      creaTask.mutate({ title, completed: false });
     }
   };
 
@@ -27,9 +25,9 @@ export default function TaskForm() {
         <button
           type="submit"
           className="bg-blue-500 text-white p-2 rounded"
-          disabled={mutation.isLoading}
+          disabled={creaTask.isLoading}
         >
-          {mutation.isLoading ? "Adding..." : "Add Task"}
+          {creaTask.isLoading ? "Adding..." : "Add Task"}
         </button>
       </div>
     </form>

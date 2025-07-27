@@ -16,7 +16,6 @@ import {
 // ✅ Fetch tasks
 export const useTasks = () => {
   const dispatch = useDispatch();
-
   return useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
@@ -41,7 +40,6 @@ export const useCreateTask = () => {
     },
   });
 };
-
 // ✅ Update an existing task
 export const useUpdateTask = () => {
   const dispatch = useDispatch();

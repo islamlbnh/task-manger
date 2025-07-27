@@ -6,7 +6,6 @@ import { useTasks } from "../services/query";
 export default function TaskList() {
   const { filter } = useUIStore();
   const tasks = useSelector((state) => state.tasks.tasks);
-
   const { isLoading } = useTasks();
 
   const filteredTasks = tasks.filter((task) => {
